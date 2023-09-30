@@ -1,9 +1,25 @@
-import React from "react";
+import React, {useState} from "react";
+import Task from "./Task";
 
-function TaskList() {
+
+function TaskList({tasks, currentCategory, removeTask}) {
+
+  const filteredTasks = currentCategory === "All" 
+    ? tasks 
+    : tasks.filter((task) => task.category === currentCategory);
+  
   return (
     <div className="tasks">
-      {/* display a list of tasks using Task component */}
+      {filteredTasks.map((task) => {
+        return (
+          <Task 
+            key={task.text} 
+            task={task} 
+            removeTask={removeTask} 
+            category={currentCategory}
+          />
+        );
+     })};
     </div>
   );
 }
